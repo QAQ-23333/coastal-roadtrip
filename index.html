@@ -14,14 +14,16 @@
 <title>沿海自驾路书 · 完整版</title>
 <script>
 var _bmapReady=false,_bmapWait=0;
+function _bmapErr(){document.getElementById('loading').innerHTML='<div style=color:#e74c3c>\u274c \u767e\u5ea6\u5730\u56fe\u811a\u672c\u52a0\u8f7d\u5931\u8d25</div>'}
+function _bmapTimeout(){document.getElementById('loading').innerHTML='<div style=color:#e74c3c>\u26a0\ufe0f \u5730\u56fe\u52a0\u8f7d\u8d85\u65f6<br><small>\u8bf7\u68c0\u67e5\u7f51\u7edc\u6216\u5237\u65b0\u91cd\u8bd5</small></div>'}
 function waitBMapGL(){
   if(typeof BMapGL!=='undefined'){_bmapReady=true;return}
   _bmapWait++;
-  if(_bmapWait>150){document.getElementById('loading').innerHTML='<div style=color:#e74c3c>⚠️ 地图加载超时<br><small>请检查网络或刷新重试</small></div>';return}
+  if(_bmapWait>150){_bmapTimeout();return}
   setTimeout(waitBMapGL,100);
 }
 </script>
-<script src="https://api.map.baidu.com/getscript?type=webgl&v=1.0&ak=ubkl27mPSYPfN2BuP8Rnk5xod9cvHJ6p&services=" onload="waitBMapGL()" onerror="document.getElementById('loading').innerHTML='<div style=color:#e74c3c>❌ 百度地图脚本加载失败</div>'"></script>
+<script src="https://api.map.baidu.com/getscript?type=webgl&v=1.0&ak=ubkl27mPSYPfN2BuP8Rnk5xod9cvHJ6p&services=" onload="waitBMapGL()" onerror="_bmapErr()"></script>
 <style>
 :root{--bg:222 47% 7%;--fg:210 40% 92%;--card:222 30% 13%;--muted:217 33% 17%;--muted-fg:215 16% 60%;--border:217 33% 17%;--accent:38 92% 65%;--green:142 76% 36%;--blue:217 91% 60%;--red:0 72% 51%;--charge:160 100% 45%}
 *{margin:0;padding:0;box-sizing:border-box}
