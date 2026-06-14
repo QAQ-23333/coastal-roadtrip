@@ -12,7 +12,8 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>沿海自驾路书 · 完整版</title>
-<script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=ubkl27mPSYPfN2BuP8Rnk5xod9cvHJ6p"></script>
+<script>var _bmapReady=false;function baiduMapReady(){_bmapReady=true}</script>
+<script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=ubkl27mPSYPfN2BuP8Rnk5xod9cvHJ6p&callback=baiduMapReady"></script>
 <style>
 :root{--bg:222 47% 7%;--fg:210 40% 92%;--card:222 30% 13%;--muted:217 33% 17%;--muted-fg:215 16% 60%;--border:217 33% 17%;--accent:38 92% 65%;--green:142 76% 36%;--blue:217 91% 60%;--red:0 72% 51%;--charge:160 100% 45%}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -296,7 +297,7 @@ function pick(i){
 
 // ══ 地图 ══
 function go(){
-  if(typeof BMapGL==='undefined'){setTimeout(go,100);return}
+  if(!_bmapReady||typeof BMapGL==='undefined'){setTimeout(go,100);return}
   document.getElementById('loading').classList.add('done');
   map=new BMapGL.Map('map');map.enableScrollWheelZoom(true);
   map.setMaxZoom(18);map.setMinZoom(5);
