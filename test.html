@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>BMap Test</title>
+<style>
+body{background:#111;color:#fff;font-family:sans-serif;text-align:center;padding-top:40px}
+#status{font-size:18px;margin:20px}
+</style>
+</head><body>
+<div id="status">⏳ 等待BMapGL…</div>
+<div id="map" style="width:90vw;height:60vh;margin:0 auto;border:2px solid #333;border-radius:8px"></div>
+
+<!-- 方法1: getscript 直接加载 -->
+<script>
+var tried=0, maxTry=150;
+function poll(){
+  if(typeof BMapGL!=='undefined'){
+    try{
+      document.getElementById('status').textContent='✅ BMapGL已加载，创建地图…';
+      var m=new BMapGL.Map('map');
+      m.centerAndZoom(new BMapGL.Point(116.404,39.915),12);
+      m.enableScrollWheelZoom(true);
+      document.getElementById('status').textContent='✅ 地图创建成功！';
+    }catch(e){
+      document.getElementById('status').textContent='❌ 地图创建失败: '+e.message;
+    }
+    return;
+  }
+  tried++;
+  if(tried>maxTry){document.getElementById('status').textContent='❌ 超时: BMapGL未定义 (等了'+maxTry/10+'秒)';return}
+  setTimeout(poll,100);
+}
+</script>
+<script src="https://api.map.baidu.com/getscript?type=webgl&v=1.0&ak=ubkl27mPSYPfN2BuP8Rnk5xod9cvHJ6p&services=" onload="document.getElementById('status').textContent='📥 getscript下载完成，轮询BMapGL…';poll()" onerror="document.getElementById('status').textContent='❌ getscript加载失败'"></script>
+</body></html>
