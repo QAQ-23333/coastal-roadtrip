@@ -245,7 +245,7 @@ function setMode(m){
     // 纳入所有spot
     Object.values(SPOTS).forEach(s=>{if(s.p)pts.push(new BMapGL.Point(s.p[0],s.p[1]))});
     Object.values(SVCS).forEach(s=>{if(s.p)pts.push(new BMapGL.Point(s.p[0],s.p[1]))});
-    map.setViewport(pts,{margins:[40,40,40,40]});
+    map.setViewport(pts,{margins:[30,30,30,30]});
   }else{
     sb.classList.remove('hide');detail.classList.remove('hide');
     hint.textContent='↑↓/jk 切日期 · 点标签看详情 · 双击百科';
@@ -283,7 +283,9 @@ function pick(i){
   const pts=day.r.map(n=>new BMapGL.Point(CT[n][0],CT[n][1]));
   if(day.spots)day.spots.forEach(sn=>{const s=SPOTS[sn];if(s&&s.p)pts.push(new BMapGL.Point(s.p[0],s.p[1]))});
   if(day.svc)day.svc.forEach(sv=>{const s=SVCS[sv.n];if(s&&s.p)pts.push(new BMapGL.Point(s.p[0],s.p[1]))});
-  map.setViewport(pts,{margins:[60,330,50,60]});
+  const w=window.innerWidth;
+  const rightMargin=w<440?10:w<640?120:280;
+  map.setViewport(pts,{margins:[50,rightMargin,50,50]});
 }
 
 // ══ 地图 ══
@@ -291,6 +293,7 @@ function go(){
   if(typeof BMapGL==='undefined'){setTimeout(go,100);return}
   document.getElementById('loading').classList.add('done');
   map=new BMapGL.Map('map');map.enableScrollWheelZoom(true);
+  map.setMaxZoom(18);map.setMinZoom(5);
   map.addControl(new BMapGL.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_SMALL}));
 
   const fr=['岳池','荆州','日照','烟台','威海','荣成','乳山','海阳','即墨','青岛','日照','襄阳','岳池'];
