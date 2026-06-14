@@ -23,7 +23,7 @@ function waitBMapGL(){
   setTimeout(waitBMapGL,100);
 }
 </script>
-<script src="https://api.map.baidu.com/getscript?type=webgl&v=1.0&ak=ubkl27mPSYPfN2BuP8Rnk5xod9cvHJ6p&services=" onload="waitBMapGL()" onerror="_bmapErr()"></script>
+<script defer src="https://api.map.baidu.com/getscript?type=webgl&v=1.0&ak=ubkl27mPSYPfN2BuP8Rnk5xod9cvHJ6p&services=" onload="waitBMapGL()" onerror="_bmapErr()"></script>
 <style>
 :root{--bg:222 47% 7%;--fg:210 40% 92%;--card:222 30% 13%;--muted:217 33% 17%;--muted-fg:215 16% 60%;--border:217 33% 17%;--accent:38 92% 65%;--green:142 76% 36%;--blue:217 91% 60%;--red:0 72% 51%;--charge:160 100% 45%}
 *{margin:0;padding:0;box-sizing:border-box}
